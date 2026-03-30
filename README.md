@@ -10,7 +10,6 @@ Modela el flujo completo de una plataforma de comercio B2B entre una distribuido
 - Gestión de clientes con límite de crédito
 - Procesamiento de pedidos con validación de crédito disponible
 - Historial de pedidos por cliente
-- Reportes de ventas
 
 ## Arquitectura
 
@@ -19,8 +18,16 @@ El proyecto sigue una arquitectura en capas:
 MiniB2BVarela/
 ├── Modelos/          # Entidades del dominio (Producto, Cliente, Pedido, ItemPedido)
 ├── Servicios/        # Lógica de negocio (GestionServicio)
-├── Helpers/          # Utilidades de presentación y formato
+├── Helpers/          # Utilidades de presentación (ConsolaHelper)
 └── Program.cs        # Punto de entrada y menú principal
+
+
+## Decisiones técnicas
+
+- `decimal` en lugar de `double` para valores monetarios (evita errores de redondeo en cálculos financieros)
+- `CreditoDisponible` como propiedad calculada (se computa en tiempo real, nunca se desincroniza)
+- `PrecioUnitario` guardado en el momento del pedido (los cambios de precio futuros no afectan pedidos históricos)
+- Separación de responsabilidades por capas
 
 ## Stack técnico
 
@@ -28,7 +35,3 @@ MiniB2BVarela/
 - Framework: .NET 8
 - IDE: Visual Studio 2022
 - Versionado: Git / GitHub
-
-## Estado del proyecto
-
-🚧 En desarrollo activo
